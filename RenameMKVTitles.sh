@@ -21,14 +21,14 @@ fi
 # Change to the target directory
 cd "$TARGET_DIRECTORY" || exit
 
-# Iterate over each MKV file in the directory
-for file in *.mkv; do
+# Find all MKV files in the directory structure
+find "$TARGET_DIRECTORY" -type f -name "*.mkv" | while read -r file; do
     # Get the file name without extension
     filename=$(basename "$file" .mkv)
 
     # Check if the filename contains "-deleted"
     if [[ $filename == *"-deleted"* ]]; then
-        # Replace "-deleted" with "(Deleted Scene)" in the title
+        # Replace "-deleted" with " (Deleted Scene)" in the title
         title="${filename//-deleted/ (Deleted Scene)}"
     else
         # Use the original filename as the title
